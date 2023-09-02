@@ -1,0 +1,54 @@
+[
+{
+  "model": "poll.question",
+  "pk": 2,
+  "fields": {
+    "question_text": "What color of KU's shirt do you want?",
+    "pub_date": "2023-09-01T09:58:02Z"
+  }
+},
+{
+  "model": "poll.question",
+  "pk": 3,
+  "fields": {
+    "question_text": "What pet do you prefer.",
+    "pub_date": "2023-09-02T15:28:23Z"
+  }
+},
+{
+  "model": "poll.choice",
+  "pk": 4,
+  "fields": {
+    "question": 2,
+    "choice_text": "blue",
+    "votes": 1
+  }
+},
+{
+  "model": "poll.choice",
+  "pk": 5,
+  "fields": {
+    "question": 2,
+    "choice_text": "green",
+    "votes": 1
+  }
+},
+{
+  "model": "poll.choice",
+  "pk": 6,
+  "fields": {
+    "question": 3,
+    "choice_text": "cat",
+    "votes": 2
+  }
+},
+{
+  "model": "poll.choice",
+  "pk": 7,
+  "fields": {
+    "question": 3,
+    "choice_text": "dog",
+    "votes": 2
+  }
+}
+]
