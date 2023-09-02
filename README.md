@@ -47,8 +47,8 @@ See [Installation](../../wiki/Installation) in the project wiki.
 
 Sample polls and users data are included. 
 
-* `demo1` password `Hackme1`
-* `demo2` password `Hackme2`
+* `admin` password `examplepassword1`
+* `admin2` password `examplepassword2`
 
 ## Project Documents
 
