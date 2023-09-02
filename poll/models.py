@@ -9,8 +9,8 @@ class Question(models.Model):
         return self.question_text
 
     def was_published_recently(self):
-        # check if public recently by 1 day
-        return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+        now = timezone.now()
+        return (now - datetime.timedelta(days=1)) <= self.pub_date <= now
 
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
@@ -19,6 +19,3 @@ class Choice(models.Model):
 
     def __str__(self):
         return  self.choice_text
-# username: admin
-# admin1@gmail.com
-# pass : examplepassword
