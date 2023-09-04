@@ -3,14 +3,6 @@ This is a Python program made with Django that helps you make surveys or polls w
 
 A polls application for [Individual Software Process](https://cpske.github.io/ISP) course at [Kasetsart University](https://ku.ac.th).
 
-## Requirements
-
-Requires Python 3.8 or newer.  Required Python packages are listed in [requirements.txt](./requirements.txt). 
-
-## Install and Configure the Application
-
-See [Installation](../../wiki/Installation) in the project wiki.
-
 
 ## Running the Application
 
@@ -52,11 +44,11 @@ Sample polls and users data are included.
 
 ## Project Documents
 
-All project-related documents are in the [Project Wiki](../../wiki/Home)
+All project-related documents are in the [Project Wiki](https://github.com/tnnpp/ku-polls/wiki)
 
 - [Vision Statement](https://github.com/tnnpp/ku-polls/wiki/Vision-Statement)
 - [Requirements](https://github.com/tnnpp/ku-polls/wiki/Requirements))
 - [Development Plan](https://github.com/tnnpp/ku-polls/wiki/Development-Plan)
-- [Iteration 1 Plan](https://github.com/tnnpp/ku-polls/wiki/Iteration-1-Plan) and [Task Board](../../projects/1)
+- [Iteration 1 Plan](https://github.com/tnnpp/ku-polls/wiki/Iteration-1-Plan) and [Task Board](https://github.com/users/tnnpp/projects/3)
 
 [django-tutorial]: https://docs.djangoproject.com/en/3.1/intro/tutorial01/
