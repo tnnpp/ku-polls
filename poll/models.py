@@ -1,10 +1,10 @@
 import datetime
 from django.db import models
 from django.utils import timezone
-from django import forms
+
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
-    pub_date = models.DateTimeField(auto_now_add=True)
+    pub_date = models.DateTimeField('published date',default=timezone.now())
     end_date = models.DateTimeField('end published date')
 
     def __str__(self):
@@ -15,10 +15,10 @@ class Question(models.Model):
         return (now - datetime.timedelta(days=1)) <= self.pub_date <= now
 
     def is_published(self):
-        return timezone.now() > self.pub_date
+        return timezone.now() >= self.pub_date
 
     def can_vote(self):
-        return self.end_date > timezone.now() > self.pub_date
+        return self.end_date >= timezone.now() >= self.pub_date
 
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)

@@ -16,10 +16,9 @@ class IndexView(generic.ListView):
         """
         all_questions = Question.objects.all()
         # check if the question is published recently and can vote
-        question = [q for q in all_questions if q.is_published() and q.can_vote() and q.was_published_recently()]
+        question = [q for q in all_questions if q.is_published() and q.can_vote()]
         # sort and select last 5 question
-        question_index = sorted(question,key=lambda q: q.pub_date,reverse=True)[:5]
-        return question_index
+        return Question.objects.filter(question_text__in=question).order_by("-pub_date")[:5]
 
 class DetailView(generic.DetailView):
     model = Question
