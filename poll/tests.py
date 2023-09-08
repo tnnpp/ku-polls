@@ -1,7 +1,7 @@
 import datetime
 from django.test import TestCase
 from django.utils import timezone
-from .models import Question
+from .models import Question,Choice
 from django.urls import reverse
 
 
@@ -91,9 +91,33 @@ class QuestionIndexViewIspublishTests(TestCase):
             response.context['latest_question_list'],
             [question2, question1],
         )
+def create_choice(question,choice_Text,votes):
+    """
+    Create a choice with the given `choice_text` and vote's number
+    """
+    return Choice.objects.create(question=question, choice_text=choice_Text, votes=votes)
 
-class QuestionDetailViewTests(TestCase):
-    def test_future_question(self):
+class QuestionCanVoteTests(TestCase):
+    def test_cannot_vote_after_end_date(self):
+        """
+        Cannot vote if the end_date is in the past.
+        """
+        question = create_question(question_text="Past question.", days=-2, end=-1)
+        vote = create_choice(question=question,choice_Text='a',votes=0)
+        response = self.client.get(reverse('poll:vote', args=(question.id,)))
+        self.assertContains(response, "The poll already ended.")
+
+    def test_can_vote_present_question(self):
+        """
+        The detail view of a question with a pub_date at now
+        displays the question's text.
+        """
+        past_question = create_question(question_text='Past Question.', days=0, end=1)
+        url = reverse('poll:detail', args=(past_question.id,))
+        response = self.client.get(url)
+        self.assertContains(response, past_question.question_text)
+
+    def test_can_not_vote_future_question(self):
         """
         The detail view of a question with a pub_date in the future
         returns a 404 not found.
@@ -103,7 +127,7 @@ class QuestionDetailViewTests(TestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, 404)
 
-    def test_past_question(self):
+    def test_can_vote_past_question(self):
         """
         The detail view of a question with a pub_date in the past
         displays the question's text.
@@ -112,3 +136,4 @@ class QuestionDetailViewTests(TestCase):
         url = reverse('poll:detail', args=(past_question.id,))
         response = self.client.get(url)
         self.assertContains(response, past_question.question_text)
+
