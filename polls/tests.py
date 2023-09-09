@@ -105,7 +105,7 @@ class QuestionCanVoteTests(TestCase):
         question = create_question(question_text="Past question.", days=-2, end=-1)
         vote = create_choice(question=question,choice_Text='a',votes=0)
         response = self.client.get(reverse('polls:vote', args=(question.id,)))
-        self.assertContains(response, "The polls already ended.")
+        self.assertContains(response, "The poll has already ended.")
 
     def test_can_vote_present_question(self):
         """
