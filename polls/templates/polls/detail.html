@@ -12,3 +12,7 @@
 </fieldset>
 <input type="submit" value="Vote">
 </form>
+<form action="{% url 'polls:results' question.id %}" method="GET" >
+    {% csrf_token %}
+    <input type="submit" value="Views results">
+</form>

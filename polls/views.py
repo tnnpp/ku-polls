@@ -40,7 +40,6 @@ class ResultsView(generic.DetailView):
     template_name = 'polls/results.html'
 
 
-
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     # check if can vote
@@ -66,5 +65,3 @@ def vote(request, question_id):
                 'error_message': "The polls already ended.",
             })
 
-def view_result(request,question_id):
-    return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
