@@ -1,11 +1,14 @@
 from django.http import HttpResponseRedirect
-from .models import Question,Choice
+from .models import Question, Choice
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views import generic
-from django.utils import timezone
+
 
 class IndexView(generic.ListView):
+    """
+    View for displaying a list of the latest published questions.
+    """
     template_name = 'polls/index.html'
     context_object_name = 'latest_question_list'
 
@@ -15,12 +18,16 @@ class IndexView(generic.ListView):
         published in the future).
         """
         all_questions = Question.objects.all()
-        # check if the question is published recently and can vote
+        # Check if the question is published recently and can be voted on.
         question = [q for q in all_questions if q.is_published() and q.can_vote()]
-        # sort and select last 5 question
+        # Sort and select the last 5 questions.
         return Question.objects.filter(question_text__in=question).order_by("-pub_date")[:5]
 
+
 class DetailView(generic.DetailView):
+    """
+    View for displaying details of a question.
+    """
     model = Question
     template_name = 'polls/detail.html'
 
@@ -29,26 +36,31 @@ class DetailView(generic.DetailView):
         Excludes any questions that aren't published yet.
         """
         all_questions = Question.objects.all()
-        # check if the question is published recently and can vote
+        # Check if the question is published recently.
         question = [q for q in all_questions if q.is_published()]
 
         return Question.objects.filter(question_text__in=question)
 
 
 class ResultsView(generic.DetailView):
+    """
+    View for displaying the results of a question.
+    """
     model = Question
     template_name = 'polls/results.html'
 
 
-
 def vote(request, question_id):
+    """
+    View for handling user votes on a question.
+    """
     question = get_object_or_404(Question, pk=question_id)
-    # check if can vote
+    # Check if the user can vote on this question.
     if question.can_vote():
         try:
             selected_choice = question.choice_set.get(pk=request.POST['choice'])
         except (KeyError, Choice.DoesNotExist):
-            # Redisplay the question voting form.
+            # Redisplay the question voting form with an error message.
             return render(request, 'polls/detail.html', {
                 'question': question,
                 'error_message': "You didn't select a choice.",
@@ -61,8 +73,8 @@ def vote(request, question_id):
             # user hits the Back button.
             return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
     else:
-        return  render(request, 'polls/detail.html', {
-                'question': question,
-                'error_message': "The polls already ended.",
-            })
-
+        # User cannot vote on this question, so display an error message.
+        return render(request, 'polls/detail.html', {
+            'question': question,
+            'error_message': "The poll has already ended.",
+        })
