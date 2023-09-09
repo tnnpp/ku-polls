@@ -1,0 +1,59 @@
+.vote_button{
+    background-color: #dbff88;
+    color: rgb(4, 111, 74);
+    font-size: large;
+    width: 125px;
+    height: 35px;
+    position: relative;
+    left: 25%;
+}
+.Views{
+    background-color: #dbff88;
+    color: rgb(4, 111, 74);
+    font-size: large;
+    width: 125px;
+    height: 35px;
+    position: relative;
+    bottom: 50px;
+    left: 60%;
+}
+
+body{
+    background: white url("images/detail_background.jpg") no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+h1{
+    color: rgb(5, 55, 43);
+    font-family:"Courier New";
+    font-size: 36px;
+    border: 2px solid rgb(13, 53, 53); 
+    background-color: rgb(238, 255, 179);
+    text-align: center;
+    width: 550px;
+}
+fieldset {
+    border: 2px solid #980707;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 20px;
+    height: 70%;
+}
+
+input[type="radio"] + label {
+    width: auto; /* Set the width and height based on your custom image size */
+    height: 35px;
+    padding-left: 10px;
+    padding-right: 10px ;
+    display: inline-block;
+    cursor: pointer;
+    vertical-align: middle;
+    line-height: 2;
+    border:3px solid rgb(4, 111, 74);
+    background-color: rgb(144, 242, 245);
+    text-align: center;
+    font-family:cursive;
+    font-size: large;
+    color: rgb(4, 111, 74);
+
+}

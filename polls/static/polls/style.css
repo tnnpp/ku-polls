@@ -1,0 +1,52 @@
+a{
+    color: rgb(20, 70, 50);
+    font-family: cursive;
+    
+    
+}
+#questionlist{
+    color: rgb(20, 70, 50);
+    font-family: cursive;
+    position: absolute;
+    left: 30vw;
+    top: 105px;
+
+}
+h1{
+    text-align: center;
+    color: rgb(12, 39, 31);
+    font-family:"Courier New";
+    font-style:oblique;
+    font-size: 38px;
+    border: 2px solid rgb(13, 53, 53); 
+    width: 200px;
+    background-color: rgb(238, 255, 179);
+    position: absolute;
+    left: 30vw;
+}
+body{
+    background: white url("images/background.png") no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+.box{
+    height: 400px;
+    width: 600px;
+    background: transparent url("images/box.png") no-repeat;
+    background-size:contain;
+    position: absolute;
+    top: 87px;
+    left: 30%;
+    z-index: -1;
+
+}
+h2{
+    font-family:cursive;
+    font-size: 18px;
+    position: absolute;
+    left: 48vw;
+    top: 74px;
+
+}
+
+
