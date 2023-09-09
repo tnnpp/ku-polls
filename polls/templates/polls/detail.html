@@ -10,9 +10,9 @@
         <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
     {% endfor %}
 </fieldset>
-<input type="submit" value="Vote">
+<input type="submit" class="vote_button" value="Vote">
 </form>
 <form action="{% url 'polls:results' question.id %}" method="GET" >
     {% csrf_token %}
-    <input type="submit" value="Views results">
+    <input type="submit" class="Views" value="Views results" >
 </form>
