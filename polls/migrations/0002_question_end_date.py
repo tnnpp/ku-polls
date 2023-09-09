@@ -7,7 +7,7 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('poll', '0001_initial'),
+        ('polls', '0001_initial'),
     ]
 
     operations = [

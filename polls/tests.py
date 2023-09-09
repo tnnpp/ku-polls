@@ -49,7 +49,7 @@ class QuestionIndexViewIspublishTests(TestCase):
         Question with pub_date is now are display on index page.
         """
         question = create_question(question_text="Past question.", days=0, end=1)
-        response = self.client.get(reverse('poll:index'))
+        response = self.client.get(reverse('polls:index'))
         self.assertQuerysetEqual(
             response.context['latest_question_list'],
             [question]
@@ -60,7 +60,7 @@ class QuestionIndexViewIspublishTests(TestCase):
         Questions with a pub_date in the past are displayed on the index page.
         """
         question = create_question(question_text="Past question.", days=-30, end=1 )
-        response = self.client.get(reverse('poll:index'))
+        response = self.client.get(reverse('polls:index'))
         self.assertQuerysetEqual(
             response.context['latest_question_list'],
             [question]
@@ -74,7 +74,7 @@ class QuestionIndexViewIspublishTests(TestCase):
         """
         question = create_question(question_text="Past question.", days=-30,end=1)
         future_question = create_question(question_text="Future question.", days=30,end=31)
-        response = self.client.get(reverse('poll:index'))
+        response = self.client.get(reverse('polls:index'))
         self.assertQuerysetEqual(
             response.context['latest_question_list'],
             [question]
@@ -86,7 +86,7 @@ class QuestionIndexViewIspublishTests(TestCase):
         """
         question1 = create_question(question_text="Past question 1.", days=-30,end=1)
         question2 = create_question(question_text="Past question 2.", days=-5,end=1)
-        response = self.client.get(reverse('poll:index'))
+        response = self.client.get(reverse('polls:index'))
         self.assertQuerysetEqual(
             response.context['latest_question_list'],
             [question2, question1],
@@ -104,8 +104,8 @@ class QuestionCanVoteTests(TestCase):
         """
         question = create_question(question_text="Past question.", days=-2, end=-1)
         vote = create_choice(question=question,choice_Text='a',votes=0)
-        response = self.client.get(reverse('poll:vote', args=(question.id,)))
-        self.assertContains(response, "The poll already ended.")
+        response = self.client.get(reverse('polls:vote', args=(question.id,)))
+        self.assertContains(response, "The polls already ended.")
 
     def test_can_vote_present_question(self):
         """
@@ -113,7 +113,7 @@ class QuestionCanVoteTests(TestCase):
         displays the question's text.
         """
         past_question = create_question(question_text='Past Question.', days=0, end=1)
-        url = reverse('poll:detail', args=(past_question.id,))
+        url = reverse('polls:detail', args=(past_question.id,))
         response = self.client.get(url)
         self.assertContains(response, past_question.question_text)
 
@@ -123,7 +123,7 @@ class QuestionCanVoteTests(TestCase):
         returns a 404 not found.
         """
         future_question = create_question(question_text='Future question.', days=5,end=6)
-        url = reverse('poll:detail', args=(future_question.id,))
+        url = reverse('polls:detail', args=(future_question.id,))
         response = self.client.get(url)
         self.assertEqual(response.status_code, 404)
 
@@ -133,7 +133,7 @@ class QuestionCanVoteTests(TestCase):
         displays the question's text.
         """
         past_question = create_question(question_text='Past Question.', days=-5,end=1)
-        url = reverse('poll:detail', args=(past_question.id,))
+        url = reverse('polls:detail', args=(past_question.id,))
         response = self.client.get(url)
         self.assertContains(response, past_question.question_text)
 
@@ -142,7 +142,7 @@ class QuestionCanVoteTests(TestCase):
         the question with have no end date can be vote and show in index page
         """
         question = Question.objects.create(question_text="question_text", pub_date=timezone.now(),end_date=None)
-        response = self.client.get(reverse('poll:index'))
+        response = self.client.get(reverse('polls:index'))
         self.assertQuerysetEqual(
             response.context['latest_question_list'],
             [question]
