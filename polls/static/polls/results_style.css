@@ -22,10 +22,16 @@ h2{
     margin-left: 5vw;
     margin-top: 20px;
 }
-li{
-    margin-left: 5vw;
+table{
+    margin-left: 2vw;
     margin-top: 10px;
     font-family:cursive;
+    border: 2px solid rgb(13, 53, 53);
+}
+th,td{
+    border: 2px solid rgb(13, 53, 53);
+    width: 200px;
+    text-align: center;
 }
 a{
     margin-left: 5vw;
