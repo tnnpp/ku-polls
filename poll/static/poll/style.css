@@ -6,8 +6,6 @@ a{
 }
 #questionlist{
     color: rgb(20, 70, 50);
-    /* margin-left: 30vw;
-    margin-right: 30vw; */
     font-family: cursive;
     position: absolute;
     left: 30vw;

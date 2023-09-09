@@ -65,3 +65,6 @@ def vote(request, question_id):
                 'question': question,
                 'error_message': "The poll already ended.",
             })
+
+def view_result(request):
+    pass

@@ -5,7 +5,7 @@ from django.utils import timezone
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField('published date',default=timezone.now())
-    end_date = models.DateTimeField('end published date')
+    end_date = models.DateTimeField('end published date',null=True,blank=True)
 
     def __str__(self):
         return self.question_text
@@ -18,7 +18,10 @@ class Question(models.Model):
         return timezone.now() >= self.pub_date
 
     def can_vote(self):
-        return self.end_date >= timezone.now() >= self.pub_date
+        if self.end_date == None :
+            return timezone.now() >= self.pub_date
+        else:
+            return self.end_date >= timezone.now() >= self.pub_date
 
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)

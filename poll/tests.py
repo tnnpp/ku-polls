@@ -33,7 +33,7 @@ class QuestionModelTests(TestCase):
         old_question = Question(pub_date=time)
         self.assertIs(old_question.was_published_recently(), False)
 
-def create_question(question_text, days,end):
+def create_question(question_text, days, end):
     """
     Create a question with the given `question_text` and published the
     given number of `days` offset to now (negative for questions published
@@ -136,4 +136,18 @@ class QuestionCanVoteTests(TestCase):
         url = reverse('poll:detail', args=(past_question.id,))
         response = self.client.get(url)
         self.assertContains(response, past_question.question_text)
+
+    def test_can_vote_with_end_date_is_null_value(self):
+        """
+        the question with have no end date can be vote and show in index page
+        """
+        question = Question.objects.create(question_text="question_text", pub_date=timezone.now(),end_date=None)
+        response = self.client.get(reverse('poll:index'))
+        self.assertQuerysetEqual(
+            response.context['latest_question_list'],
+            [question]
+        )
+
+
+
 
