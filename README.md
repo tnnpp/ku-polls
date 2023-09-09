@@ -1,3 +1,4 @@
+[![Python application](https://github.com/tnnpp/ku-polls/actions/workflows/python-app.yml/badge.svg)](https://github.com/tnnpp/ku-polls/actions/workflows/python-app.yml)
 # Web Polls for Kasetsart University
 This is a Python program made with Django that helps you make surveys or polls with multiple-choice questions. It builds upon the [Django tutorial project][django-tutorial] and adds additional functionality.
 
