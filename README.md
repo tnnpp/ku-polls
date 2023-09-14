@@ -51,5 +51,6 @@ All project-related documents are in the [Project Wiki](https://github.com/tnnpp
 - [Requirements](https://github.com/tnnpp/ku-polls/wiki/Requirements))
 - [Development Plan](https://github.com/tnnpp/ku-polls/wiki/Development-Plan)
 - [Iteration 1 Plan](https://github.com/tnnpp/ku-polls/wiki/Iteration-1-Plan) and [Task Board](https://github.com/users/tnnpp/projects/3)
+- [Iteration 2 Plan](https://github.com/tnnpp/ku-polls/wiki/iteration-2-Plan)
 
 [django-tutorial]: https://docs.djangoproject.com/en/3.1/intro/tutorial01/
