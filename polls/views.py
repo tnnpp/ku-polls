@@ -3,7 +3,9 @@ from .models import Question, Choice
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views import generic
-
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
 
 class IndexView(generic.ListView):
     """
@@ -49,32 +51,35 @@ class ResultsView(generic.DetailView):
     model = Question
     template_name = 'polls/results.html'
 
-
+@login_required
 def vote(request, question_id):
     """
     View for handling user votes on a question.
     """
     question = get_object_or_404(Question, pk=question_id)
+    user = request.user
+    print("current user is", user.id, "login", user.username)
+    print("Real name:", user.first_name, user.last_name)
     # Check if the user can vote on this question.
-    if question.can_vote():
-        try:
-            selected_choice = question.choice_set.get(pk=request.POST['choice'])
-        except (KeyError, Choice.DoesNotExist):
-            # Redisplay the question voting form with an error message.
-            return render(request, 'polls/detail.html', {
-                'question': question,
-                'error_message': "You didn't select a choice.",
-            })
-        else:
-            selected_choice.votes += 1
-            selected_choice.save()
-            # Always return an HttpResponseRedirect after successfully dealing
-            # with POST data. This prevents data from being posted twice if a
-            # user hits the Back button.
-            return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
-    else:
+    if not question.can_vote():
         # User cannot vote on this question, so display an error message.
+        messages.error(request, "The polls is not available")
+    try:
+        selected_choice = question.choice_set.get(pk=request.POST['choice'])
+    except (KeyError, Choice.DoesNotExist):
+        # Redisplay the question voting form with an error message.
         return render(request, 'polls/detail.html', {
             'question': question,
-            'error_message': "The poll has already ended.",
+            'error_message': "You didn't select a choice.",
         })
+    else:
+        selected_choice.votes += 1
+        selected_choice.save()
+        # Always return an HttpResponseRedirect after successfully dealing
+        # with POST data. This prevents data from being posted twice if a
+        # user hits the Back button.
+        return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
+
+
+
+

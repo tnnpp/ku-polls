@@ -15,3 +15,8 @@
 {% endif %}
 <div class="box">
 </div>
+{% if user.is_authenticated %}
+   Welcome back, {{ user.username }}
+{% else %}
+   Please <a href="{% url 'login' %}?next={{request.path}}">Login</a>
+{% endif %}
