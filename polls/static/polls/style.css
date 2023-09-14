@@ -1,15 +1,58 @@
+.welcome{
+    color: aliceblue;
+    position: absolute;
+    top: 10px;
+}
+h2{
+    font-family:cursive;
+    font-size: 18px;
+    position:relative;
+    top: 85px;
+    left: 10%;
+    text-align: center;
+    border: 2px solid rgb(13, 53, 53); 
+    width: 80%;
+    z-index: 1;
+    
+}
 a{
     color: rgb(20, 70, 50);
     font-family: cursive;
-    
-    
 }
-#questionlist{
-    color: rgb(20, 70, 50);
-    font-family: cursive;
+.question {
+    border: 2px solid rgb(20, 70, 50);
+    background-color: rgb(148, 255, 171);
+    width: auto;
+    padding-top: 10px;
+    padding-left: 5px;
+    padding-bottom: 10px;
+    box-shadow: 5px 5px 5px rgb(17, 193, 146);
+    margin-top: 10px;;
+    position: relative;
+    top: 15px;
+    left: -20px;
+}
+.Views{
+    margin-left: 80%;
     position: absolute;
-    left: 30vw;
-    top: 105px;
+    top: 10px;
+}
+
+
+#questionlist{
+    display: flex; 
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 80%;
+    width: 80%;
+    background-color:rgb(238, 255, 179); ;
+    background-size:contain;
+    position: absolute;
+    top: 87px;
+    left: 10vw;
+    border: 2px solid rgb(13, 53, 53); 
+
+    
 
 }
 h1{
@@ -22,31 +65,13 @@ h1{
     width: 200px;
     background-color: rgb(238, 255, 179);
     position: absolute;
-    left: 30vw;
+    left: 10%;
 }
 body{
     background: white url("images/background.png") no-repeat;
     background-size: cover;
     background-position: center;
 }
-.box{
-    height: 400px;
-    width: 600px;
-    background: transparent url("images/box.png") no-repeat;
-    background-size:contain;
-    position: absolute;
-    top: 87px;
-    left: 30%;
-    z-index: -1;
 
-}
-h2{
-    font-family:cursive;
-    font-size: 18px;
-    position: absolute;
-    left: 48vw;
-    top: 74px;
-
-}
 
 

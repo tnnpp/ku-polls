@@ -18,6 +18,18 @@ class Question(models.Model):
     end_date = models.DateTimeField('end published date', null=True,
                                     blank=True)
 
+    def pub_date_str(self):
+        """
+        Returns the pub_date as a formatted string.
+        """
+        return self.pub_date.strftime('%Y-%m-%d %H:%M:%S')
+
+    def end_date_str(self):
+        """
+        Returns the end_date as a formatted string or None if it's not set.
+        """
+        return self.end_date.strftime('%Y-%m-%d %H:%M:%S') if self.end_date else None
+
     def __str__(self):
         """
         Returns a string representation of the question.
