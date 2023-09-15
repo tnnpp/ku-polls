@@ -86,6 +86,12 @@ def vote(request, question_id):
             # user hits the Back button.
             return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
 
+@login_required()
+def profile(request):
+    user = request.user
+    user_votes = Vote.objects.filter(user=user)
+    return render(request, 'polls/profile.html', {'user_votes': user_votes})
+
 
 
 
