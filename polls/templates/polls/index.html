@@ -33,9 +33,13 @@
         <input type="submit" class="logout" value="Logout">
     </form>
 {% else %}
-     <form action="{% url 'login'%}" method="get">
-        {% csrf_token %}
-        Please <input type="submit" class="login" value="Login">
-    </form>
+    <div class="button-form">
+        <form action="{% url 'login' %}" method="get">
+            Please <input type="submit" class="login" value="Login">
+        </form>
+        <form action="{% url 'signup' %}" method="get">
+            or <input type="submit" class="signup" value="Sign up">
+        </form>
+    </div>
 {% endif %}
 </div>

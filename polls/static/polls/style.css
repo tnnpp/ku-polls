@@ -1,3 +1,7 @@
+button-form {
+        display: inline-block;
+        margin-right: 10px; /* Add spacing between buttons if needed */
+    }
 .welcome{
     color: aliceblue;
     position: absolute;
