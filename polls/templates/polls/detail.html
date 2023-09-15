@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="{% static 'polls/detail_style.css' %}">
 <form action="{% url 'polls:vote' question.id %}" method="post">
 {% csrf_token %}
-<fieldset>
+    <fieldset>
     <legend><h1>{{ question.question_text }}</h1></legend>
     {% if messages %}
 <ul class="messages">
@@ -10,9 +10,13 @@
         <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
     {% endfor %}
 </ul>
+
 {% endif %}
     {% for choice in question.choice_set.all %}
-        <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+        <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}"
+            {% if choice.id == old_choice.id %}
+              checked
+            {% endif %}>
         <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
     {% endfor %}
 </fieldset>
@@ -23,3 +27,4 @@
     <input type="submit" class="Views" value="Views results" >
 </form>
 <a href="{% url 'polls:index' %}">Go back to list of poll</a>
+

@@ -43,6 +43,20 @@ class DetailView(generic.DetailView):
 
         return Question.objects.filter(question_text__in=question)
 
+    def get_old_choice(self):
+        user = self.request.user
+        question = self.get_object()
+        votes = Vote.objects.filter(choice__question=question,user=user)
+        if votes.exists():
+            return votes.first().choice
+        else:
+            return None
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['old_choice'] = self.get_old_choice()
+        return context
+
 
 class ResultsView(generic.DetailView):
     """
@@ -75,16 +89,21 @@ def vote(request, question_id):
         # check if user already voted.
         is_exist = Vote.objects.filter(choice__question=selected_choice.question, user=user).exists()
         if is_exist:
-            messages.error(request, "You have already voted.")
-            return render(request, "polls/detail.html", {'question': question})
+            vote = Vote.objects.get(choice__question=selected_choice.question, user=user)
+            # messages.info(request, f"You have already voted for {vote.choice.choice_text}")
+            vote.choice = selected_choice
+            vote.save()
+            messages.success(request, f"Change vote to {vote.choice.choice_text} has been saved")
+            # return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
+            print(Vote.objects.all())
+            return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
         else:
             # create new vote object.
             vote = Vote(choice=selected_choice,user=user)
             vote.save()
-            # Always return an HttpResponseRedirect after successfully dealing
-            # with POST data. This prevents data from being posted twice if a
-            # user hits the Back button.
+            messages.success(request, f"Your vote for {vote.choice.choice_text} has been saved")
             return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
+
 
 @login_required()
 def profile(request):

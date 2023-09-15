@@ -11,4 +11,14 @@
         {% endfor %}
     </table>
 </ul>
+{% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      {% if message.tags == 'success' %}
+        <li class="success">{{ message }}</li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+{% endif %}
+
 <a href="{% url 'polls:index' %}">Go back to list of poll</a>
