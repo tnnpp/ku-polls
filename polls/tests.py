@@ -1,7 +1,9 @@
 import datetime
+
+from django.contrib.messages import get_messages
 from django.test import TestCase
 from django.utils import timezone
-from .models import Question,Choice
+from .models import Question,Choice,Vote
 from django.urls import reverse
 import django.test
 from django.contrib.auth.models import User
@@ -241,7 +243,67 @@ class UserAuthTest(django.test.TestCase):
         login_with_next = f"{reverse('login')}?next={vote_url}"
         self.assertRedirects(response, login_with_next)
 
+class Vote_test(django.test.TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(
+            username='testuser',
+            password='testpassword',
+            email='testuser@example.com'
+        )
+        self.question = create_question(
+            question_text="Past question.",
+            days=-2,
+            end=5
+        )
+        self.choice = Choice.objects.create(
+            question=self.question,
+            choice_text="hello"
+        )
+        self.choice2 = Choice.objects.create(
+            question=self.question,
+            choice_text="hello1"
+        )
+        self.client.login(username='testuser', password='testpassword')
 
+    def test_can_vote_only_one_time(self):
+        """
+        one user can vote only once.
+        """
+        # Simulate the user's first vote
+        response = self.client.post(reverse('polls:vote', args=(self.question.id,)), {'choice': self.choice.id})
+        self.assertRedirects(response, reverse('polls:results', args=(self.question.id,)))
+        self.assertEqual(Vote.objects.count(), 1)
+        self.assertEqual(Vote.objects.get().choice, self.choice)
+        self.assertEqual(Vote.objects.get().user, self.user)
 
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(str(messages[0]), f"Your vote for {self.choice.choice_text} has been saved")
 
+        # Attempt to vote again
+        response = self.client.post(reverse('polls:vote', args=(self.question.id,)), {'choice': self.choice.id})
+        self.assertEqual(Vote.objects.count(), 1)  # Vote count should not change
 
+    def test_vote_change(self):
+        """
+        User can change the vote by delete the old one.
+        """
+        # Simulate the user's first vote
+        response = self.client.post(reverse('polls:vote', args=(self.question.id,)), {'choice': self.choice.id})
+        self.assertRedirects(response, reverse('polls:results', args=(self.question.id,)))
+        self.assertEqual(Vote.objects.count(), 1)
+        self.assertEqual(Vote.objects.get().choice, self.choice)
+        self.assertEqual(Vote.objects.get().user, self.user)
+
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(str(messages[0]), f"Your vote for {self.choice.choice_text} has been saved")
+
+        # Attempt to change the vote to another choice
+        response = self.client.post(reverse('polls:vote', args=(self.question.id,)), {'choice': self.choice2.id})
+        self.assertRedirects(response, reverse('polls:results', args=(self.question.id,)))
+        self.assertEqual(Vote.objects.count(), 1)  # Vote count should remain the same
+
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(str(messages[0]), f"Change vote to {self.choice2.choice_text} has been saved")
