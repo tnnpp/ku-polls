@@ -1,16 +1,18 @@
 {% load static %}
-<link rel="stylesheet" href="{% static 'polls/results_style.css' %}">
+<link rel="stylesheet" href="{% static 'polls/results_style.css' %}" xmlns="http://www.w3.org/1999/html">
 <h1>Result</h1>
 <h2>{{ question.question_text }}</h2>
 
-<ul>
-    <table>
-        <tr><th>Choice</th><th>Votes</th></tr>
-        {% for choice in question.choice_set.all %}
-        <tr><td>{{ choice.choice_text }}</td><td>{{ choice.votes }}</td> </tr>
-        {% endfor %}
-    </table>
-</ul>
+
+<div class="container">
+  {% for choice in question.choice_set.all %}
+    {{ choice.choice_text }}
+        <div class="vote_bar">
+          <div class="bar" style="width: {{choice.votes}}%">{{ choice.votes }}</div>
+        </div>
+  {% endfor %}
+</div>
+
 {% if messages %}
   <ul class="messages">
     {% for message in messages %}

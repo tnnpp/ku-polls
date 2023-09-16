@@ -69,7 +69,7 @@ class ResultsView(generic.DetailView):
     """
     model = Question
     template_name = 'polls/results.html'
-
+  
 @login_required
 def vote(request, question_id):
     """
