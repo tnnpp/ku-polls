@@ -38,12 +38,14 @@ A polls application for [Individual Software Process](https://cpske.github.io/IS
 
 ## Demo User Accounts
 Sample polls and users data are included. 
+
 ### admin account
 * `admin` password `examplepassword1`
 * `admin2` password `examplepassword2`
 ### user account
 * `harry` password `hackme22`
 * `tonnam` password `examplepassword`
+
 ## Project Documents
 
 All project-related documents are in the [Project Wiki](https://github.com/tnnpp/ku-polls/wiki)
