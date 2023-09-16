@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.views import generic
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import AnonymousUser
 from django.contrib import messages
 
 class IndexView(generic.ListView):
@@ -44,7 +45,11 @@ class DetailView(generic.DetailView):
         return Question.objects.filter(question_text__in=question)
 
     def get_old_choice(self):
+
         user = self.request.user
+        if user == AnonymousUser():
+            return None
+
         question = self.get_object()
         votes = Vote.objects.filter(choice__question=question,user=user)
         if votes.exists():
@@ -53,6 +58,7 @@ class DetailView(generic.DetailView):
             return None
 
     def get_context_data(self, **kwargs):
+
         context = super().get_context_data(**kwargs)
         context['old_choice'] = self.get_old_choice()
         return context
@@ -77,8 +83,8 @@ def vote(request, question_id):
 
     if not question.can_vote():
         # User cannot vote on this question, so display an error message.
-        messages.error(request, "The polls is not available.")
-        return render(request, 'polls/detail.html')
+        messages.error(request, "The poll is not available.")
+        return render(request, 'polls/detail.html',{'question': question})
 
     try:
         selected_choice = question.choice_set.get(pk=request.POST['choice'])
