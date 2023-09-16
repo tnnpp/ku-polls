@@ -22,3 +22,22 @@
 {% endif %}
 
 <a href="{% url 'polls:index' %}">Go back to list of poll</a>
+
+<div class="welcome">
+{% if user.is_authenticated %}
+   Welcome back, {{ user.username }}
+     <form action="{% url 'logout'%}" method="get">
+        {% csrf_token %}
+        <input type="submit" class="logout" value="Logout">
+    </form>
+{% else %}
+    <div class="button-form">
+        <form action="{% url 'login' %}" method="get">
+            Please <input type="submit" class="login" value="Login">
+        </form>
+        <form action="{% url 'signup' %}" method="get">
+            or <input type="submit" class="signup" value="Sign up">
+        </form>
+    </div>
+{% endif %}
+</div>
