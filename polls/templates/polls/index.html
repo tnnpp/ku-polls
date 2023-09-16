@@ -4,14 +4,42 @@
 <h2>Question</h2>
 {% if latest_question_list %}
 <div id="questionlist" >
+    <!-- <div class="question"> -->
     <ul>
     {% for question in latest_question_list %}
-        <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
-    {% endfor %}
+    <div class="question">
+            <a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a>
+            <div class="date">
+                Publish date: {{ question.pub_date_str }}
+                End date: {{ question.end_date_str }}
+            </div>
+            <form action="{% url 'polls:results' question.id %}" method="GET" >
+                {% csrf_token %}
+                <input type="submit" class="Views" value="Results">
+            </form>
+        </div>
+            {% endfor %}
     </ul>
+    <!-- </div> -->
 </div>
 {% else %}
     <p>No polls are available.</p>
 {% endif %}
-<div class="box">
+<div class="welcome">
+{% if user.is_authenticated %}
+   Welcome back, {{ user.username }}
+     <form action="{% url 'logout'%}" method="get">
+        {% csrf_token %}
+        <input type="submit" class="logout" value="Logout">
+    </form>
+{% else %}
+    <div class="button-form">
+        <form action="{% url 'login' %}" method="get">
+            Please <input type="submit" class="login" value="Login">
+        </form>
+        <form action="{% url 'signup' %}" method="get">
+            or <input type="submit" class="signup" value="Sign up">
+        </form>
+    </div>
+{% endif %}
 </div>

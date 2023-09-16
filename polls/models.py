@@ -1,7 +1,7 @@
 import datetime
 from django.db import models
 from django.utils import timezone
-
+from django.contrib.auth.models import User
 
 class Question(models.Model):
     """
@@ -17,6 +17,18 @@ class Question(models.Model):
     pub_date = models.DateTimeField('published date', default=timezone.now)
     end_date = models.DateTimeField('end published date', null=True,
                                     blank=True)
+
+    def pub_date_str(self):
+        """
+        Returns the pub_date as a formatted string.
+        """
+        return self.pub_date.strftime('%Y-%m-%d %H:%M:%S')
+
+    def end_date_str(self):
+        """
+        Returns the end_date as a formatted string or None if it's not set.
+        """
+        return self.end_date.strftime('%Y-%m-%d %H:%M:%S') if self.end_date else None
 
     def __str__(self):
         """
@@ -68,10 +80,23 @@ class Choice(models.Model):
     """
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choice_text = models.CharField(max_length=200)
-    votes = models.IntegerField(default=0)
-
     def __str__(self):
         """
         Returns a string representation of the choice.
         """
         return self.choice_text
+
+    @property
+    def votes(self):
+        """Return the number of votes for this choice."""
+        return self.vote_set.count()
+
+class Vote(models.Model):
+    """
+    Record a choice for a question made by a user
+    """
+    choice = models.ForeignKey(Choice, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.user.username} voted for {self.choice.choice_text}"

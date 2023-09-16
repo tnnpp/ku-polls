@@ -1,14 +1,45 @@
 {% load static %}
-<link rel="stylesheet" href="{% static 'polls/results_style.css' %}">
+<link rel="stylesheet" href="{% static 'polls/results_style.css' %}" xmlns="http://www.w3.org/1999/html">
 <h1>Result</h1>
 <h2>{{ question.question_text }}</h2>
 
-<ul>
-    <table>
-        <tr><th>Choice</th><th>Votes</th></tr>
-        {% for choice in question.choice_set.all %}
-        <tr><td>{{ choice.choice_text }}</td><td>{{ choice.votes }}</td> </tr>
-        {% endfor %}
-    </table>
-</ul>
+
+<div class="container">
+  {% for choice in question.choice_set.all %}
+    {{ choice.choice_text }}
+        <div class="vote_bar">
+          <div class="bar" style="width: {{choice.votes}}%">{{ choice.votes }}</div>
+        </div>
+  {% endfor %}
+</div>
+
+{% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      {% if message.tags == 'success' %}
+        <li class="success">{{ message }}</li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+{% endif %}
+
 <a href="{% url 'polls:index' %}">Go back to list of poll</a>
+
+<div class="welcome">
+{% if user.is_authenticated %}
+   Welcome back, {{ user.username }}
+     <form action="{% url 'logout'%}" method="get">
+        {% csrf_token %}
+        <input type="submit" class="logout" value="Logout">
+    </form>
+{% else %}
+    <div class="button-form">
+        <form action="{% url 'login' %}" method="get">
+            Please <input type="submit" class="login" value="Login">
+        </form>
+        <form action="{% url 'signup' %}" method="get">
+            or <input type="submit" class="signup" value="Sign up">
+        </form>
+    </div>
+{% endif %}
+</div>

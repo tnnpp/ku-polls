@@ -1,0 +1,92 @@
+[
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$600000$Kr1b6dP3qfB3DNJ5vGsGLK$U49Opv2VmckBqwKsakQEB8JeCI6/0OQCLI4Rr1KhEEs=",
+    "last_login": "2023-09-02T14:39:21.153Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "admin1@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2023-09-01T09:52:31.520Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$600000$Ipkvk986LvZ5aEXiCk7rQ3$buwE1UGBgwEWvUiGkAHeCDATNKRz/vI7M7ZqiZVDaWA=",
+    "last_login": "2023-09-16T07:29:44.273Z",
+    "is_superuser": true,
+    "username": "admin2",
+    "first_name": "",
+    "last_name": "",
+    "email": "admin2@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2023-09-02T15:05:30.777Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$600000$aReSW8xEdOAZLSDRV7N1O9$6e7a76Y5FPH68Uy9iGp3Gcf0gPfeNz8HlXy6yVcm/XM=",
+    "last_login": "2023-09-16T12:44:57.453Z",
+    "is_superuser": false,
+    "username": "harry",
+    "first_name": "Harry",
+    "last_name": "",
+    "email": "harry@hackerone.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2023-09-12T07:42:26.005Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$600000$5Ln5Zm2qpYTxXkbX6sphOv$prkPbjGDSpbIQjFmSIlHtkXvvSC+wIKW453IQo6m08g=",
+    "last_login": "2023-09-15T05:36:22.815Z",
+    "is_superuser": false,
+    "username": "sample",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2023-09-15T05:36:21.942Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 5,
+  "fields": {
+    "password": "pbkdf2_sha256$600000$4WoEz0mrJY3yxO2b5Q5qTu$CJECuguc217Pg6PPdvJsqFKWRw16KbLhhVW1Hr3FgYY=",
+    "last_login": "2023-09-16T06:52:23.041Z",
+    "is_superuser": false,
+    "username": "tonnam",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2023-09-16T06:52:00.195Z",
+    "groups": [],
+    "user_permissions": []
+  }
+}
+]

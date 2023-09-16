@@ -1,0 +1,36 @@
+<h1>Profile</h1>
+<div>
+    <b>Username: </b> {{ user.username }}
+</div>
+<h3> Vote History<h3>
+<div class="vote_box">
+    <table>
+        <tr>
+            <th>Question</th>
+            <th>Choice</th>
+            <th></th>
+        </tr>
+    {% for user_vote in user_votes%}
+        <tr>
+        <div class="vote_history">
+           <td>{{ user_vote.choice.question.question_text}}
+            <td>{{user_vote.choice.choice_text}}</td>
+            <td>
+                <form action= "{% url 'polls:detail' user_vote.choice.question.id %}" method="GET">
+                    {% csrf_token %}
+                    <input type="submit" class="change_vote" value="Change Vote">
+                </form>
+            </td>
+        </div>
+        </tr>
+    {% empty %}
+    <b>No votes yet</b>
+    {% endfor %}
+    </table>
+</div>
+    {% if user.is_authenticated %}
+    <form action="{% url 'logout'%}" method="get">
+        {% csrf_token %}
+        <input type="submit" class="logout" value="Logout">
+    </form>
+    {% endif %}

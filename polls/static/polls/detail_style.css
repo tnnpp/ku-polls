@@ -1,59 +1,85 @@
 .vote_button{
-    background-color: #dbff88;
+    background-color: #e7ffad;
     color: rgb(4, 111, 74);
     font-size: large;
+    font-family: cursive;
+    position: absolute;
+    top: 90%;
+    left: 30%;
+    border-radius: 10px;
+    padding: 5px;
     width: 125px;
-    height: 35px;
-    position: relative;
-    left: 25%;
+}
+.vote_button:hover{
+    background-color: #62e2f5;
 }
 .Views{
-    background-color: #dbff88;
+    background-color: #e7ffad;
     color: rgb(4, 111, 74);
     font-size: large;
-    width: 125px;
-    height: 35px;
-    position: relative;
-    bottom: 50px;
+    font-family: cursive;
+    position: absolute;
+    top: 90%;
     left: 60%;
+    border-radius: 10px;
+    padding: 5px;
 }
+.Views:hover{
+    background-color: #62e2f5;
+}
+h1{
+    color: rgb(5, 55, 43);
+    font-family:cursive;
+    font-size: 20px;
+    border: 2px solid rgb(13, 53, 53); 
+    width: 60vw;
+    background-color: rgb(238, 255, 179);
+    position: relative;
+    padding: 10px;
+   
 
+}
+fieldset{
+    display: flexbox;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+    top:25px;
+    left: 13%;
+    border: 2px solid rgb(13, 53, 53); 
+    width: 70vw;
+    height: 80%;
+    background-color: rgba(255, 255, 255,0.7) ;
+    border-radius: 20px;
+    overflow: auto;
+}
 body{
     background: white url("images/detail_background.jpg") no-repeat;
     background-size: cover;
     background-position: center;
 }
-h1{
-    color: rgb(5, 55, 43);
-    font-family:"Courier New";
-    font-size: 36px;
-    border: 2px solid rgb(13, 53, 53); 
-    background-color: rgb(238, 255, 179);
-    text-align: center;
-    width: 550px;
-}
-fieldset {
-    border: 2px solid #980707;
-    border-radius: 5px;
-    padding: 10px;
-    margin: 20px;
-    height: 70%;
-}
 
-input[type="radio"] + label {
+.choice_button {
     width: auto; /* Set the width and height based on your custom image size */
-    height: 35px;
-    padding-left: 10px;
-    padding-right: 10px ;
-    display: inline-block;
+    background-color: aliceblue;
+    padding: 20px;
+    border: 1.5px solid rgb(13, 53, 53);
+    border-radius: 10px;
+    margin-top: 0px;
     cursor: pointer;
-    vertical-align: middle;
-    line-height: 2;
-    border:3px solid rgb(4, 111, 74);
-    background-color: rgb(144, 242, 245);
-    text-align: center;
-    font-family:cursive;
-    font-size: large;
-    color: rgb(4, 111, 74);
+}
+.choice_button:hover {
+    border-color: blue; /* Change the border color on hover */
+}
 
+.welcome{
+    position: absolute;
+    top: 10px;
+    color: white;
+}
+
+a{
+    color: #62e2f5;
+    position: absolute;
+    top:95%
 }

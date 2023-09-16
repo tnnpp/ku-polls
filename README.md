@@ -37,18 +37,21 @@ A polls application for [Individual Software Process](https://cpske.github.io/IS
    ```
 
 ## Demo User Accounts
-
 Sample polls and users data are included. 
 
+### admin account
 * `admin` password `examplepassword1`
 * `admin2` password `examplepassword2`
+### user account
+* `harry` password `hackme22`
+* `tonnam` password `examplepassword`
 
 ## Project Documents
 
 All project-related documents are in the [Project Wiki](https://github.com/tnnpp/ku-polls/wiki)
 
 - [Vision Statement](https://github.com/tnnpp/ku-polls/wiki/Vision-Statement)
-- [Requirements](https://github.com/tnnpp/ku-polls/wiki/Requirements))
+- [Requirements](https://github.com/tnnpp/ku-polls/wiki/Requirements)python manage.py dumpdata --indent=2 -o data/users.json auth.user
 - [Development Plan](https://github.com/tnnpp/ku-polls/wiki/Development-Plan)
 - [Iteration 1 Plan](https://github.com/tnnpp/ku-polls/wiki/Iteration-1-Plan) and [Task Board](https://github.com/users/tnnpp/projects/3)
 - [Iteration 2 Plan](https://github.com/tnnpp/ku-polls/wiki/iteration-2-Plan)

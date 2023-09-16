@@ -1,9 +1,11 @@
 from django.http import HttpResponseRedirect
-from .models import Question, Choice
+from .models import Question, Choice, Vote
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views import generic
-
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import AnonymousUser
+from django.contrib import messages
 
 class IndexView(generic.ListView):
     """
@@ -41,6 +43,25 @@ class DetailView(generic.DetailView):
 
         return Question.objects.filter(question_text__in=question)
 
+    def get_old_choice(self):
+
+        user = self.request.user
+        if user == AnonymousUser():
+            return None
+
+        question = self.get_object()
+        votes = Vote.objects.filter(choice__question=question,user=user)
+        if votes.exists():
+            return votes.first().choice
+        else:
+            return None
+
+    def get_context_data(self, **kwargs):
+
+        context = super().get_context_data(**kwargs)
+        context['old_choice'] = self.get_old_choice()
+        return context
+
 
 class ResultsView(generic.DetailView):
     """
@@ -48,33 +69,50 @@ class ResultsView(generic.DetailView):
     """
     model = Question
     template_name = 'polls/results.html'
-
-
+  
+@login_required
 def vote(request, question_id):
     """
     View for handling user votes on a question.
     """
     question = get_object_or_404(Question, pk=question_id)
-    # Check if the user can vote on this question.
-    if question.can_vote():
-        try:
-            selected_choice = question.choice_set.get(pk=request.POST['choice'])
-        except (KeyError, Choice.DoesNotExist):
-            # Redisplay the question voting form with an error message.
-            return render(request, 'polls/detail.html', {
-                'question': question,
-                'error_message': "You didn't select a choice.",
-            })
-        else:
-            selected_choice.votes += 1
-            selected_choice.save()
-            # Always return an HttpResponseRedirect after successfully dealing
-            # with POST data. This prevents data from being posted twice if a
-            # user hits the Back button.
-            return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
-    else:
+    user = request.user
+    print("current user is", user.id, "login", user.username)
+    print("Real name:", user.first_name, user.last_name)
+
+    if not question.can_vote():
         # User cannot vote on this question, so display an error message.
-        return render(request, 'polls/detail.html', {
-            'question': question,
-            'error_message': "The poll has already ended.",
-        })
+        messages.error(request, "The poll is not available.")
+        return render(request, 'polls/detail.html',{'question': question})
+
+    try:
+        selected_choice = question.choice_set.get(pk=request.POST['choice'])
+    except (KeyError, Choice.DoesNotExist):
+        messages.error(request, "You didn't select a choice.")
+        return render(request, "polls/detail.html", {'question': question})
+    else:
+        # check if user already voted.
+        is_exist = Vote.objects.filter(choice__question=selected_choice.question, user=user).exists()
+        if is_exist:
+            vote = Vote.objects.get(choice__question=selected_choice.question, user=user)
+            vote.choice = selected_choice
+            vote.save()
+            messages.success(request, f"Change vote to {vote.choice.choice_text} has been saved")
+            return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
+        else:
+            # create new vote object.
+            vote = Vote(choice=selected_choice,user=user)
+            vote.save()
+            messages.success(request, f"Your vote for {vote.choice.choice_text} has been saved")
+            return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
+
+
+@login_required()
+def profile(request):
+    user = request.user
+    user_votes = Vote.objects.filter(user=user)
+    return render(request, 'polls/profile.html', {'user_votes': user_votes})
+
+
+
+
