@@ -4,7 +4,6 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views import generic
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import AnonymousUser
 from django.contrib import messages
 
@@ -96,12 +95,9 @@ def vote(request, question_id):
         is_exist = Vote.objects.filter(choice__question=selected_choice.question, user=user).exists()
         if is_exist:
             vote = Vote.objects.get(choice__question=selected_choice.question, user=user)
-            # messages.info(request, f"You have already voted for {vote.choice.choice_text}")
             vote.choice = selected_choice
             vote.save()
             messages.success(request, f"Change vote to {vote.choice.choice_text} has been saved")
-            # return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
-            print(Vote.objects.all())
             return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
         else:
             # create new vote object.
