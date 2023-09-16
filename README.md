@@ -1,15 +1,8 @@
+[![Python application](https://github.com/tnnpp/ku-polls/actions/workflows/python-app.yml/badge.svg)](https://github.com/tnnpp/ku-polls/actions/workflows/python-app.yml)
 # Web Polls for Kasetsart University
 This is a Python program made with Django that helps you make surveys or polls with multiple-choice questions. It builds upon the [Django tutorial project][django-tutorial] and adds additional functionality.
 
 A polls application for [Individual Software Process](https://cpske.github.io/ISP) course at [Kasetsart University](https://ku.ac.th).
-
-## Requirements
-
-Requires Python 3.8 or newer.  Required Python packages are listed in [requirements.txt](./requirements.txt). 
-
-## Install and Configure the Application
-
-See [Installation](../../wiki/Installation) in the project wiki.
 
 
 ## Running the Application
@@ -44,19 +37,21 @@ See [Installation](../../wiki/Installation) in the project wiki.
    ```
 
 ## Demo User Accounts
-
 Sample polls and users data are included. 
-
-* `demo1` password `Hackme1`
-* `demo2` password `Hackme2`
-
+### admin account
+* `admin` password `examplepassword1`
+* `admin2` password `examplepassword2`
+### user account
+* `harry` password `hackme22`
+* `tonnam` password `examplepassword`
 ## Project Documents
 
-All project-related documents are in the [Project Wiki](../../wiki/Home)
+All project-related documents are in the [Project Wiki](https://github.com/tnnpp/ku-polls/wiki)
 
 - [Vision Statement](https://github.com/tnnpp/ku-polls/wiki/Vision-Statement)
-- [Requirements](https://github.com/tnnpp/ku-polls/wiki/Requirements))
+- [Requirements](https://github.com/tnnpp/ku-polls/wiki/Requirements)python manage.py dumpdata --indent=2 -o data/users.json auth.user
 - [Development Plan](https://github.com/tnnpp/ku-polls/wiki/Development-Plan)
-- [Iteration 1 Plan](https://github.com/tnnpp/ku-polls/wiki/Iteration-1-Plan) and [Task Board](../../projects/1)
+- [Iteration 1 Plan](https://github.com/tnnpp/ku-polls/wiki/Iteration-1-Plan) and [Task Board](https://github.com/users/tnnpp/projects/3)
+- [Iteration 2 Plan](https://github.com/tnnpp/ku-polls/wiki/iteration-2-Plan)
 
 [django-tutorial]: https://docs.djangoproject.com/en/3.1/intro/tutorial01/
