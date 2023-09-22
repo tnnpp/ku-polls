@@ -10,17 +10,18 @@
         <div class="vote_bar">
           <div class="bar" style="width: {{choice.votes}}%">{{ choice.votes }}</div>
         </div>
+        <div class="votes"> votes </div>
   {% endfor %}
 </div>
 
 {% if messages %}
-  <ul class="messages">
-    {% for message in messages %}
-      {% if message.tags == 'success' %}
-        <li class="success">{{ message }}</li>
-      {% endif %}
-    {% endfor %}
-  </ul>
+    </div class="success">
+        {% for message in messages %}
+          {% if message.tags == 'success' %}
+            <b class="message">{{ message }}</b>
+          {% endif %}
+        {% endfor %}
+    </div>
 {% endif %}
 
 <a href="{% url 'polls:index' %}">Go back to list of poll</a>

@@ -73,6 +73,12 @@ h1{
     position: absolute;
     left: 10%;
 }
+.profile{
+    color: rgb(148, 236, 233);
+    margin-left: 10px;
+    position: absolute;
+    bottom:10px;
+}
 body{
     background: white url("images/background.png") no-repeat;
     background-size: cover;
