@@ -27,11 +27,47 @@
   }
 },
 {
+  "model": "polls.question",
+  "pk": 5,
+  "fields": {
+    "question_text": "Which type of food do you prefer for a special occasion?",
+    "pub_date": "2023-09-22T13:48:08Z",
+    "end_date": null
+  }
+},
+{
+  "model": "polls.question",
+  "pk": 6,
+  "fields": {
+    "question_text": "Which movie genre do you enjoy the most?",
+    "pub_date": "2023-09-22T13:51:24Z",
+    "end_date": "2023-09-30T13:51:35Z"
+  }
+},
+{
+  "model": "polls.question",
+  "pk": 7,
+  "fields": {
+    "question_text": "Do you prefer online or onsite class?",
+    "pub_date": "2023-09-22T14:17:41Z",
+    "end_date": "2023-09-26T14:18:20Z"
+  }
+},
+{
+  "model": "polls.question",
+  "pk": 8,
+  "fields": {
+    "question_text": "What is your favorite programing language?",
+    "pub_date": "2023-09-22T14:18:24Z",
+    "end_date": null
+  }
+},
+{
   "model": "polls.choice",
   "pk": 1,
   "fields": {
     "question": 1,
-    "choice_text": "blue"
+    "choice_text": "Blue"
   }
 },
 {
@@ -39,7 +75,7 @@
   "pk": 2,
   "fields": {
     "question": 1,
-    "choice_text": "green"
+    "choice_text": "Green"
   }
 },
 {
@@ -47,7 +83,7 @@
   "pk": 3,
   "fields": {
     "question": 2,
-    "choice_text": "cat"
+    "choice_text": "Cat"
   }
 },
 {
@@ -55,7 +91,7 @@
   "pk": 4,
   "fields": {
     "question": 2,
-    "choice_text": "dog"
+    "choice_text": "Dog"
   }
 },
 {
@@ -131,59 +167,299 @@
   }
 },
 {
-  "model": "polls.vote",
-  "pk": 1,
+  "model": "polls.choice",
+  "pk": 14,
   "fields": {
-    "choice": 3,
-    "user": 2
+    "question": 1,
+    "choice_text": "Pink"
   }
 },
 {
-  "model": "polls.vote",
-  "pk": 2,
+  "model": "polls.choice",
+  "pk": 15,
   "fields": {
-    "choice": 4,
-    "user": 2
+    "question": 1,
+    "choice_text": "Purple"
   }
 },
 {
-  "model": "polls.vote",
-  "pk": 3,
+  "model": "polls.choice",
+  "pk": 16,
   "fields": {
-    "choice": 4,
-    "user": 3
+    "question": 5,
+    "choice_text": "Italian"
   }
 },
 {
-  "model": "polls.vote",
-  "pk": 4,
+  "model": "polls.choice",
+  "pk": 17,
   "fields": {
-    "choice": 12,
-    "user": 3
+    "question": 5,
+    "choice_text": "French"
   }
 },
 {
-  "model": "polls.vote",
-  "pk": 5,
+  "model": "polls.choice",
+  "pk": 18,
   "fields": {
-    "choice": 1,
-    "user": 3
+    "question": 5,
+    "choice_text": "Japanese"
   }
 },
 {
-  "model": "polls.vote",
-  "pk": 6,
+  "model": "polls.choice",
+  "pk": 19,
   "fields": {
-    "choice": 3,
-    "user": 5
+    "question": 5,
+    "choice_text": "Mexican"
   }
 },
 {
-  "model": "polls.vote",
-  "pk": 7,
+  "model": "polls.choice",
+  "pk": 20,
   "fields": {
-    "choice": 10,
-    "user": 5
+    "question": 5,
+    "choice_text": "Indian"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 21,
+  "fields": {
+    "question": 5,
+    "choice_text": "Chinese"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 22,
+  "fields": {
+    "question": 5,
+    "choice_text": "Thai"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 23,
+  "fields": {
+    "question": 5,
+    "choice_text": "Greek"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 24,
+  "fields": {
+    "question": 6,
+    "choice_text": "Action"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 25,
+  "fields": {
+    "question": 6,
+    "choice_text": "Comedy"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 26,
+  "fields": {
+    "question": 6,
+    "choice_text": "Drama"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 27,
+  "fields": {
+    "question": 6,
+    "choice_text": "Science Fiction"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 28,
+  "fields": {
+    "question": 6,
+    "choice_text": "Fantasy"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 29,
+  "fields": {
+    "question": 6,
+    "choice_text": "Horror"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 30,
+  "fields": {
+    "question": 6,
+    "choice_text": "Romance"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 31,
+  "fields": {
+    "question": 6,
+    "choice_text": "Thriller"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 32,
+  "fields": {
+    "question": 2,
+    "choice_text": "Rabbit"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 33,
+  "fields": {
+    "question": 2,
+    "choice_text": "Hamster"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 34,
+  "fields": {
+    "question": 2,
+    "choice_text": "Snake"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 35,
+  "fields": {
+    "question": 2,
+    "choice_text": "Bird"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 36,
+  "fields": {
+    "question": 2,
+    "choice_text": "Fish"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 38,
+  "fields": {
+    "question": 2,
+    "choice_text": "Other"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 39,
+  "fields": {
+    "question": 4,
+    "choice_text": "Other"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 40,
+  "fields": {
+    "question": 5,
+    "choice_text": "Other"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 41,
+  "fields": {
+    "question": 6,
+    "choice_text": "Other"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 42,
+  "fields": {
+    "question": 7,
+    "choice_text": "Online"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 43,
+  "fields": {
+    "question": 7,
+    "choice_text": "Onsite"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 44,
+  "fields": {
+    "question": 8,
+    "choice_text": "Python"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 45,
+  "fields": {
+    "question": 8,
+    "choice_text": "C"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 46,
+  "fields": {
+    "question": 8,
+    "choice_text": "C++"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 47,
+  "fields": {
+    "question": 8,
+    "choice_text": "C#"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 48,
+  "fields": {
+    "question": 8,
+    "choice_text": "Java"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 49,
+  "fields": {
+    "question": 8,
+    "choice_text": "JavaScript"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 50,
+  "fields": {
+    "question": 8,
+    "choice_text": "PHP"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 51,
+  "fields": {
+    "question": 8,
+    "choice_text": "Other"
   }
 }
 ]
