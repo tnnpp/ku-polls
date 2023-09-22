@@ -4,6 +4,8 @@ This is a Python program made with Django that helps you make surveys or polls w
 
 A polls application for [Individual Software Process](https://cpske.github.io/ISP) course at [Kasetsart University](https://ku.ac.th).
 
+## Installation 
+see [Installation](https://github.com/tnnpp/ku-polls/blob/main/Installation.md)
 
 ## Running the Application
 
