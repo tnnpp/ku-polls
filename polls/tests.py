@@ -3,12 +3,12 @@ import datetime
 from django.contrib.messages import get_messages
 from django.test import TestCase
 from django.utils import timezone
-from .models import Question,Choice,Vote
+from .models import Question, Choice, Vote
 from django.urls import reverse
 import django.test
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate  # to "login" a user using code
 from mysite import settings
+
 
 class QuestionModelTests(TestCase):
     def test_was_published_recently_with_future_question(self):
@@ -25,7 +25,8 @@ class QuestionModelTests(TestCase):
         was_published_recently() returns True for questions whose pub_date
         is within the last day.
         """
-        time = timezone.now() - datetime.timedelta(hours=23, minutes=59, seconds=59)
+        time = timezone.now() - datetime.timedelta(hours=23,
+                                                   minutes=59, seconds=59)
         recent_question = Question(pub_date=time)
         self.assertIs(recent_question.was_published_recently(), True)
 
@@ -38,6 +39,7 @@ class QuestionModelTests(TestCase):
         old_question = Question(pub_date=time)
         self.assertIs(old_question.was_published_recently(), False)
 
+
 def create_question(question_text, days, end):
     """
     Create a question with the given `question_text` and published the
@@ -46,14 +48,17 @@ def create_question(question_text, days, end):
     """
     time = timezone.now() + datetime.timedelta(days=days)
     time_end = timezone.now() + datetime.timedelta(days=end)
-    return Question.objects.create(question_text=question_text, pub_date=time,end_date= time_end)
+    return Question.objects.create(question_text=question_text,
+                                   pub_date=time, end_date=time_end)
+
 
 class QuestionIndexViewIspublishTests(TestCase):
     def test_present_question(self):
         """
         Question with pub_date is now are display on index page.
         """
-        question = create_question(question_text="Past question.", days=0, end=1)
+        question = create_question(question_text="Past question.",
+                                   days=0, end=1)
         response = self.client.get(reverse('polls:index'))
         self.assertQuerysetEqual(
             response.context['latest_question_list'],
@@ -64,21 +69,21 @@ class QuestionIndexViewIspublishTests(TestCase):
         """
         Questions with a pub_date in the past are displayed on the index page.
         """
-        question = create_question(question_text="Past question.", days=-30, end=1 )
+        question = create_question(question_text="Past question.",
+                                   days=-30, end=1)
         response = self.client.get(reverse('polls:index'))
         self.assertQuerysetEqual(
             response.context['latest_question_list'],
-            [question]
-        )
-
+            [question])
 
     def test_future_question_and_past_question(self):
         """
         Even if both past and future questions exist, only past questions
         are displayed.
         """
-        question = create_question(question_text="Past question.", days=-30,end=1)
-        future_question = create_question(question_text="Future question.", days=30,end=31)
+        question = create_question(question_text="Past question.",
+                                   days=-30, end=1)
+        create_question(question_text="Future question.", days=30, end=31)
         response = self.client.get(reverse('polls:index'))
         self.assertQuerysetEqual(
             response.context['latest_question_list'],
@@ -89,18 +94,23 @@ class QuestionIndexViewIspublishTests(TestCase):
         """
         The questions index page may display multiple questions.
         """
-        question1 = create_question(question_text="Past question 1.", days=-30,end=1)
-        question2 = create_question(question_text="Past question 2.", days=-5,end=1)
+        question1 = create_question(question_text="Past question 1.",
+                                    days=-30, end=1)
+        question2 = create_question(question_text="Past question 2.",
+                                    days=-5, end=1)
         response = self.client.get(reverse('polls:index'))
         self.assertQuerysetEqual(
             response.context['latest_question_list'],
             [question2, question1],
         )
-def create_choice(question,choice_Text):
+
+
+def create_choice(question, choice_Text):
     """
     Create a choice with the given `choice_text` and vote's number
     """
     return Choice.objects.create(question=question, choice_text=choice_Text)
+
 
 class QuestionCanVoteTests(TestCase):
     def test_cannot_vote_after_end_date(self):
@@ -112,18 +122,21 @@ class QuestionCanVoteTests(TestCase):
             password='testpassword',
             email='testuser@example.com'
         )
-        question = create_question(question_text="Past question.", days=-2, end=-1)
+        question = create_question(question_text="Past question.",
+                                   days=-2, end=-1)
         self.client.login(username='testuser', password='testpassword')
         response = self.client.get(reverse('polls:vote', args=(question.id,)))
-        self.assertContains(response,"The poll is not available.")
+        self.assertContains(response, "The poll is not available.")
 
     def test_can_vote_present_question(self):
         """
         The detail view of a question with a pub_date at now
         displays the question's text.
         """
-        question = create_question(question_text='Past Question.', days=0, end=1)
-        response = self.client.get(reverse('polls:detail', args=(question.id,)))
+        question = create_question(question_text='Past Question.',
+                                   days=0, end=1)
+        response = self.client.get(reverse('polls:detail',
+                                           args=(question.id,)))
         self.assertContains(response, question.question_text)
 
     def test_can_not_vote_future_question(self):
@@ -131,7 +144,8 @@ class QuestionCanVoteTests(TestCase):
         The detail view of a question with a pub_date in the future
         returns a 404 not found.
         """
-        future_question = create_question(question_text='Future question.', days=5,end=6)
+        future_question = create_question(question_text='Future question.',
+                                          days=5, end=6)
         url = reverse('polls:detail', args=(future_question.id,))
         response = self.client.get(url)
         self.assertEqual(response.status_code, 404)
@@ -141,7 +155,8 @@ class QuestionCanVoteTests(TestCase):
         The detail view of a question with a pub_date in the past
         displays the question's text.
         """
-        past_question = create_question(question_text='Past Question.', days=-5,end=1)
+        past_question = create_question(question_text='Past Question.',
+                                        days=-5, end=1)
         url = reverse('polls:detail', args=(past_question.id,))
         response = self.client.get(url)
         self.assertContains(response, past_question.question_text)
@@ -150,7 +165,8 @@ class QuestionCanVoteTests(TestCase):
         """
         the question with have no end date can be vote and show in index page
         """
-        question = Question.objects.create(question_text="question_text", pub_date=timezone.now(),end_date=None)
+        question = Question.objects.create(question_text="question_text",
+                                           pub_date=timezone.now(), end_date=None)
         response = self.client.get(reverse('polls:index'))
         self.assertQuerysetEqual(
             response.context['latest_question_list'],
@@ -158,9 +174,7 @@ class QuestionCanVoteTests(TestCase):
         )
 
 
-"""Tests of authentication."""
 class UserAuthTest(django.test.TestCase):
-
     def setUp(self):
         # superclass setUp creates a Client object and initializes test database
         super().setUp()
@@ -243,6 +257,7 @@ class UserAuthTest(django.test.TestCase):
         login_with_next = f"{reverse('login')}?next={vote_url}"
         self.assertRedirects(response, login_with_next)
 
+
 class Vote_test(django.test.TestCase):
     def setUp(self):
         self.user = User.objects.create_user(
@@ -267,10 +282,11 @@ class Vote_test(django.test.TestCase):
 
     def test_can_vote_only_one_time(self):
         """
-        one user can vote only once.
+        One user can vote only once.
         """
         # Simulate the user's first vote
-        response = self.client.post(reverse('polls:vote', args=(self.question.id,)), {'choice': self.choice.id})
+        response = self.client.post(reverse('polls:vote',
+                                            args=(self.question.id,)), {'choice': self.choice.id})
         self.assertRedirects(response, reverse('polls:results', args=(self.question.id,)))
         self.assertEqual(Vote.objects.count(), 1)
         self.assertEqual(Vote.objects.get().choice, self.choice)
@@ -281,7 +297,8 @@ class Vote_test(django.test.TestCase):
         self.assertEqual(str(messages[0]), f"Your vote for {self.choice.choice_text} has been saved")
 
         # Attempt to vote again
-        response = self.client.post(reverse('polls:vote', args=(self.question.id,)), {'choice': self.choice.id})
+        response = self.client.post(reverse('polls:vote',
+                                            args=(self.question.id,)), {'choice': self.choice.id})
         self.assertEqual(Vote.objects.count(), 1)  # Vote count should not change
 
     def test_vote_change(self):
@@ -289,7 +306,8 @@ class Vote_test(django.test.TestCase):
         User can change the vote by delete the old one.
         """
         # Simulate the user's first vote
-        response = self.client.post(reverse('polls:vote', args=(self.question.id,)), {'choice': self.choice.id})
+        response = self.client.post(reverse('polls:vote',
+                                            args=(self.question.id,)), {'choice': self.choice.id})
         self.assertRedirects(response, reverse('polls:results', args=(self.question.id,)))
         self.assertEqual(Vote.objects.count(), 1)
         self.assertEqual(Vote.objects.get().choice, self.choice)
@@ -297,13 +315,16 @@ class Vote_test(django.test.TestCase):
 
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(len(messages), 1)
-        self.assertEqual(str(messages[0]), f"Your vote for {self.choice.choice_text} has been saved")
+        self.assertEqual(str(messages[0]),
+                         f"Your vote for {self.choice.choice_text} has been saved")
 
         # Attempt to change the vote to another choice
-        response = self.client.post(reverse('polls:vote', args=(self.question.id,)), {'choice': self.choice2.id})
+        response = self.client.post(reverse('polls:vote',
+                                            args=(self.question.id,)), {'choice': self.choice2.id})
         self.assertRedirects(response, reverse('polls:results', args=(self.question.id,)))
         self.assertEqual(Vote.objects.count(), 1)  # Vote count should remain the same
 
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(len(messages), 1)
-        self.assertEqual(str(messages[0]), f"Change vote to {self.choice2.choice_text} has been saved")
+        self.assertEqual(str(messages[0]),
+                         f"Change vote to {self.choice2.choice_text} has been saved")

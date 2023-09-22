@@ -25,6 +25,7 @@
 {% else %}
     <p>No polls are available.</p>
 {% endif %}
+<a class="profile" href="{% url 'polls:profile' %}">Profile</a>
 <div class="welcome">
 {% if user.is_authenticated %}
    Welcome back, {{ user.username }}
