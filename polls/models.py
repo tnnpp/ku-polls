@@ -81,6 +81,7 @@ class Choice(models.Model):
     """
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choice_text = models.CharField(max_length=200)
+
     def __str__(self):
         """
         Returns a string representation of the choice.
@@ -91,6 +92,7 @@ class Choice(models.Model):
     def votes(self):
         """Return the number of votes for this choice."""
         return self.vote_set.count()
+
 
 class Vote(models.Model):
     """

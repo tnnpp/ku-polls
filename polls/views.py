@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import AnonymousUser
 from django.contrib import messages
 
+
 class IndexView(generic.ListView):
     """
     View for displaying a list of the latest published questions.
@@ -50,7 +51,7 @@ class DetailView(generic.DetailView):
             return None
 
         question = self.get_object()
-        votes = Vote.objects.filter(choice__question=question,user=user)
+        votes = Vote.objects.filter(choice__question=question, user=user)
         if votes.exists():
             return votes.first().choice
         else:
@@ -69,7 +70,8 @@ class ResultsView(generic.DetailView):
     """
     model = Question
     template_name = 'polls/results.html'
-  
+
+
 @login_required
 def vote(request, question_id):
     """
@@ -83,7 +85,7 @@ def vote(request, question_id):
     if not question.can_vote():
         # User cannot vote on this question, so display an error message.
         messages.error(request, "The poll is not available.")
-        return render(request, 'polls/detail.html',{'question': question})
+        return render(request, 'polls/detail.html', {'question': question})
 
     try:
         selected_choice = question.choice_set.get(pk=request.POST['choice'])
@@ -92,7 +94,8 @@ def vote(request, question_id):
         return render(request, "polls/detail.html", {'question': question})
     else:
         # check if user already voted.
-        is_exist = Vote.objects.filter(choice__question=selected_choice.question, user=user).exists()
+        is_exist = Vote.objects.filter(choice__question=selected_choice.question,
+                                       user=user).exists()
         if is_exist:
             vote = Vote.objects.get(choice__question=selected_choice.question, user=user)
             vote.choice = selected_choice
@@ -101,7 +104,7 @@ def vote(request, question_id):
             return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
         else:
             # create new vote object.
-            vote = Vote(choice=selected_choice,user=user)
+            vote = Vote(choice=selected_choice, user=user)
             vote.save()
             messages.success(request, f"Your vote for {vote.choice.choice_text} has been saved")
             return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
@@ -109,10 +112,9 @@ def vote(request, question_id):
 
 @login_required()
 def profile(request):
+    """
+    Showing history of User in profile page.
+    """
     user = request.user
     user_votes = Vote.objects.filter(user=user)
     return render(request, 'polls/profile.html', {'user_votes': user_votes})
-
-
-
-
