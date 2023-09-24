@@ -61,6 +61,6 @@ python manage.py loaddata data/users.json data/polls.json
 ### How to running the appliction
 Using following code
 ```
-python manage.py rynserver
+python manage.py runserver
 ```
 More detailt of how to running the application is in [readme.md](https://github.com/tnnpp/ku-polls#readme)
