@@ -12,9 +12,9 @@ see [Installation](https://github.com/tnnpp/ku-polls/blob/main/Installation.md)
 1. Start the server in the virtual environment. 
    ```
    # activate the virtualenv for this project. On Linux or MacOS:
-   source env/bin/activate
+   source venv/bin/activate
    # on MS Windows:
-   env\Scripts\activate
+   venv\Scripts\activate
 
    # start the django server
    python3 manage.py runserver
