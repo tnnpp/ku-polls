@@ -10,6 +10,10 @@ git clone https://github.com/tnnpp/ku-polls.git
 ```
 virtualenv venv
 ```
+if not install the virtualenv yet. Using this command 
+```
+pip install virtualenv
+```
 2. Activate the virtual environment
 ```
 # On Linux or MacOS
