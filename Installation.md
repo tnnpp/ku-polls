@@ -10,14 +10,18 @@ git clone https://github.com/tnnpp/ku-polls.git
 ```
 virtualenv venv
 ```
-2. Activate the virtual environment
+2. change your directory to ku-polls
+```
+cd ku-polls
+```
+3. Activate the virtual environment
 ```
 # On Linux or MacOS
 source venv/bin/activate
 # On MS Windows
 venv\Scripts\activate
 ```
-3. Installing Dependencies
+4.Installing Dependencies
 ```
 pip install -r requirements.txt
 ```
