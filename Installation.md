@@ -21,7 +21,7 @@ source venv/bin/activate
 # On MS Windows
 venv\Scripts\activate
 ```
-4.Installing Dependencies
+4. Installing Dependencies
 ```
 pip install -r requirements.txt
 ```
