@@ -148,7 +148,7 @@ class QuestionCanVoteTests(TestCase):
                                           days=5, end=6)
         url = reverse('polls:detail', args=(future_question.id,))
         response = self.client.get(url)
-        self.assertEqual(response.status_code, 404)
+        self.assertRedirects(response, reverse('polls:index'))
 
     def test_can_vote_past_question(self):
         """
