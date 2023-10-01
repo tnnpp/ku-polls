@@ -1,3 +1,30 @@
+input[type="radio"] {
+    display: none; /* Hide the radio inputs */
+}
+label {
+    display: inline-block;
+    width: 60vw;
+    padding: 10px;
+    border: 1.5px solid rgb(13, 53, 53);
+    border-radius: 10px;
+    margin-left: -20px;
+    margin-top: 0px;
+    background-color: aliceblue;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+input[type="radio"]:checked + label {
+    background-color: #2d55d6;
+    border: 1.5px solid rgb(255, 255, 255);
+    color: white;
+}
+label:hover{
+    border: 1.5px solid #2d55d6;
+    color: #2d55d6;
+}
+
+
+
 .vote_button{
     background-color: #e7ffad;
     color: rgb(4, 111, 74);
@@ -59,18 +86,6 @@ body{
     background-position: center;
 }
 
-.choice_button {
-    width: auto; /* Set the width and height based on your custom image size */
-    background-color: aliceblue;
-    padding: 20px;
-    border: 1.5px solid rgb(13, 53, 53);
-    border-radius: 10px;
-    margin-top: 0px;
-    cursor: pointer;
-}
-.choice_button:hover {
-    border-color: blue; /* Change the border color on hover */
-}
 
 .welcome{
     position: absolute;

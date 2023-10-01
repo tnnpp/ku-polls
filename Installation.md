@@ -10,18 +10,18 @@ git clone https://github.com/tnnpp/ku-polls.git
 ```
 virtualenv venv
 ```
-if not install the virtualenv yet. Using this command 
+2. change your directory to ku-polls
 ```
-pip install virtualenv
+cd ku-polls
 ```
-2. Activate the virtual environment
+3. Activate the virtual environment
 ```
 # On Linux or MacOS
 source venv/bin/activate
 # On MS Windows
 venv\Scripts\activate
 ```
-3. Installing Dependencies
+4. Installing Dependencies
 ```
 pip install -r requirements.txt
 ```
@@ -61,6 +61,6 @@ python manage.py loaddata data/users.json data/polls.json
 ### How to running the appliction
 Using following code
 ```
-python manage.py runserver
+python manage.py rynserver
 ```
 More detailt of how to running the application is in [readme.md](https://github.com/tnnpp/ku-polls#readme)

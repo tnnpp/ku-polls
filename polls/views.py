@@ -1,4 +1,4 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect,Http404
 from .models import Question, Choice, Vote
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
@@ -34,6 +34,7 @@ class DetailView(generic.DetailView):
     model = Question
     template_name = 'polls/detail.html'
 
+
     def get_queryset(self):
         """
         Excludes any questions that aren't published yet.
@@ -43,6 +44,15 @@ class DetailView(generic.DetailView):
         question = [q for q in all_questions if q.is_published()]
 
         return Question.objects.filter(question_text__in=question)
+
+    def get(self, request, *args, **kwargs):
+        # Check if the object exists
+        try:
+            object = self.get_object()
+        except Http404:
+            return HttpResponseRedirect(reverse('polls:index'))  # Redirect to the index page
+        #still go to detail page
+        return super().get(request, *args, **kwargs)
 
     def get_old_choice(self):
 
