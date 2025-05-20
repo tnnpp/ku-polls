@@ -60,7 +60,7 @@ class QuestionIndexViewIspublishTests(TestCase):
         question = create_question(question_text="Past question.",
                                    days=0, end=1)
         response = self.client.get(reverse('polls:index'))
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             response.context['latest_question_list'],
             [question]
         )
@@ -72,7 +72,7 @@ class QuestionIndexViewIspublishTests(TestCase):
         question = create_question(question_text="Past question.",
                                    days=-30, end=1)
         response = self.client.get(reverse('polls:index'))
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             response.context['latest_question_list'],
             [question])
 
@@ -85,7 +85,7 @@ class QuestionIndexViewIspublishTests(TestCase):
                                    days=-30, end=1)
         create_question(question_text="Future question.", days=30, end=31)
         response = self.client.get(reverse('polls:index'))
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             response.context['latest_question_list'],
             [question]
         )
@@ -99,7 +99,7 @@ class QuestionIndexViewIspublishTests(TestCase):
         question2 = create_question(question_text="Past question 2.",
                                     days=-5, end=1)
         response = self.client.get(reverse('polls:index'))
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             response.context['latest_question_list'],
             [question2, question1],
         )
@@ -168,7 +168,7 @@ class QuestionCanVoteTests(TestCase):
         question = Question.objects.create(question_text="question_text",
                                            pub_date=timezone.now(), end_date=None)
         response = self.client.get(reverse('polls:index'))
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             response.context['latest_question_list'],
             [question]
         )
@@ -214,7 +214,7 @@ class UserAuthTest(django.test.TestCase):
             self.client.login(username=self.username, password=self.password)
         )
         # visit the logout page
-        response = self.client.get(logout_url)
+        response = self.client.post(logout_url)
         self.assertEqual(302, response.status_code)
 
         # should redirect us to where? Polls index? Login?

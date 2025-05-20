@@ -28,7 +28,7 @@
 <div class="welcome">
 {% if user.is_authenticated %}
    Welcome back, {{ user.username }}
-     <form action="{% url 'logout'%}" method="get">
+     <form action="{% url 'logout'%}" method="post">
         {% csrf_token %}
         <input type="submit" class="logout" value="Logout">
     </form>
