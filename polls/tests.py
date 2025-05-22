@@ -280,6 +280,29 @@ class VoteTest(django.test.TestCase):
         )
         self.client.login(username='testuser', password='testpassword')
 
+    def test_get_old_choice(self):
+        """
+        If user already vote will show old choice
+        """
+        # Simulate the user's first vote
+        response = self.client.post(reverse('polls:vote',
+                                            args=(self.question.id,)), {'choice': self.choice.id})
+        self.assertRedirects(response, reverse('polls:results', args=(self.question.id,)))
+        self.assertEqual(Vote.objects.count(), 1)
+        self.assertEqual(Vote.objects.get().choice, self.choice)
+        self.assertEqual(Vote.objects.get().user, self.user)
+
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(str(messages[0]), f"Your vote for {self.choice.choice_text} has been saved")
+
+        # Go back to vote page
+        detail_url = reverse('polls:detail', args=(self.question.id,))
+        response = self.client.get(detail_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('old_choice', response.context)
+        self.assertEqual(response.context['old_choice'], self.choice)
+
     def test_can_vote_only_one_time(self):
         """
         One user can vote only once.
