@@ -105,11 +105,11 @@ class QuestionIndexViewIspublishTests(TestCase):
         )
 
 
-def create_choice(question, choice_Text):
+def create_choice(question, choice_text):
     """
     Create a choice with the given `choice_text` and vote's number
     """
-    return Choice.objects.create(question=question, choice_text=choice_Text)
+    return Choice.objects.create(question=question, choice_text=choice_text)
 
 
 class QuestionCanVoteTests(TestCase):
@@ -258,7 +258,7 @@ class UserAuthTest(django.test.TestCase):
         self.assertRedirects(response, login_with_next)
 
 
-class Vote_test(django.test.TestCase):
+class VoteTest(django.test.TestCase):
     def setUp(self):
         self.user = User.objects.create_user(
             username='testuser',
@@ -297,8 +297,7 @@ class Vote_test(django.test.TestCase):
         self.assertEqual(str(messages[0]), f"Your vote for {self.choice.choice_text} has been saved")
 
         # Attempt to vote again
-        response = self.client.post(reverse('polls:vote',
-                                            args=(self.question.id,)), {'choice': self.choice.id})
+        self.client.post(reverse('polls:vote', args=(self.question.id,)), {'choice': self.choice.id})
         self.assertEqual(Vote.objects.count(), 1)  # Vote count should not change
 
     def test_vote_change(self):

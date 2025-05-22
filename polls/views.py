@@ -48,7 +48,7 @@ class DetailView(generic.DetailView):
     def get(self, request, *args, **kwargs):
         # Check if the object exists
         try:
-            object = self.get_object()
+            self.get_object()
         except Http404:
             return HttpResponseRedirect(reverse('polls:index'))  # Redirect to the index page
         #still go to detail page

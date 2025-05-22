@@ -9,7 +9,6 @@ def signup(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            user = form.save()
             # get named fields from the form data
             username = form.cleaned_data.get('username')
             # password input field is named 'password'
